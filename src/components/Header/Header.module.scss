@@ -1,0 +1,50 @@
+@import "vars";
+
+.Header {
+  height: 50px;
+  background: $color1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  box-shadow: $shadow;
+  z-index: 10;
+  @include laptop {
+    height: 70px;
+
+  }
+}
+.Wrapper {
+  max-width: 990px;
+  width: 100%;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  @include laptop {
+    padding: 0 15px;
+    justify-content: flex-start;
+  }
+  @include desktop {
+    max-width: 1170px;
+  }
+}
+.Logo {
+  color: $color5;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-left: 10px;
+  @include laptop {
+    margin-left: 0;
+    font-size: 4rem;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    
+  }
+}
+

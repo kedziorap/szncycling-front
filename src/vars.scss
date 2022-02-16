@@ -1,0 +1,50 @@
+$color1: #0d5c63;
+$color2: #44a1a0;
+$color3: #78cdd7;
+$color4: #247B7B;
+$color5: #fffffa;
+$color6: #982e32;
+$color7: #d2d3d5;
+$color8: #6f6d6e;
+$color9: #434345;
+$color10:#b1e7ec;
+$color11:#c8dddf;
+$color12:#c8f3f7;
+$color13:#ececec;
+$shadow: 0 0 10px rgba(0,0,0,0.5);
+
+$szcolor1: #008349;
+$szcolor2: #7cc343;
+$szcolor3: #00adef;
+$szcolor4: #333290;
+$signColor: #009845;
+$streetColor: #003194;
+
+$font-size: 1.6rem;
+
+//breakpoints
+$mobile: 500px;
+$tablet: 769px;
+$laptop: 968px;
+$desktop: 1200px;
+
+@mixin mobile {
+  @media(min-width: $mobile) {
+    @content;
+  }
+}
+@mixin tablet {
+  @media(min-width: $tablet) {
+    @content;
+  }
+}
+@mixin laptop {
+  @media(min-width: $laptop) {
+    @content;
+  }
+}
+@mixin desktop {
+  @media(min-width: $desktop) {
+    @content;
+  }
+}
