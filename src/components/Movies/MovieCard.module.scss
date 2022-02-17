@@ -1,0 +1,92 @@
+@import 'vars';
+
+.element {
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.wrapper {
+  background-color: $color2;
+  width: 100%;
+  height: 150px;
+  position: relative;
+  color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:center;
+  align-items: center;
+}
+
+.play {
+  color: $color6;
+  background: transparent;
+  cursor: pointer;
+  left: 50%;
+  right: 50%;
+  display: inline-block;
+  line-height: 1;
+  display: flex;
+}
+.link {
+  color: $color6;
+  font-size: 5rem;
+  i:before {
+    margin: 0;
+    width: auto;
+    line-height: 1;
+  }
+}
+.date, .duration, .time, .distance {
+  position: absolute;
+  font-size: 1.4rem;
+  padding-left: 20px;
+  &:before {
+    font-family: fontello;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.6rem;
+  }
+}
+.date {
+  top: 5px;
+  left: 5px;
+  font-size: 1.4rem;
+  &:before {
+    content: '\e800';
+  }
+}
+
+.time {
+  bottom: 5px;
+  left: 5px;
+  &:before {
+    content: '\e808';
+  }
+}
+
+.duration {
+  bottom: 5px;
+  right: 5px;
+  &:before {
+    content: '\f253';
+  }
+}
+
+.distance {
+  right: 5px;
+  top: 5px;
+  &:before {
+    content: '\e801';
+  }
+}
+
+.description {
+  text-align: center;
+  border: 1px solid $color8;
+  border-top: 0;
+  font-size: 0.9em;
+  padding: 5px;
+  height: calc(100% - 150px);
+}

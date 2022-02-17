@@ -1,0 +1,133 @@
+@import 'vars';
+
+.SznSign {
+  max-width: 320px;
+  width: 320px;
+  height: 120px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  padding: 5px;
+  position: relative;
+  margin: 20px auto 10px;
+  user-select: none;
+}
+
+.SznMain {
+  height: calc(80% - 5px);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+.SznBig {
+  height: 80%;
+  background: $szcolor1;
+  border-radius: 0% 50% 0% 10% / 15% 44% 20% 0%;
+  position: relative;
+  z-index: 3;
+  color: #fff;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  line-height:1;
+  font-size: 1.2rem;
+}
+.SznBottom {
+  background: $szcolor3;
+  height: 20%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: #fff;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.SznType {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.SznName {
+  display: block;
+  font-size: 1.6rem;
+  width: 100%;
+  font-weight: 600;
+  padding: 0 5px;
+}
+
+.SznTop {
+  height: 20%;
+  background: $szcolor2;
+  position: absolute;
+  z-index: 4;
+  width: 65%;
+  top: 8%;
+  border-radius: 0% 60% 45% 10% / 15% 60% 45% 0%;
+}
+
+.SznTopSmall {
+  height: 50%;
+  background: $szcolor3;
+  width: 38%;
+  position: absolute;
+  right: 5px;
+  top: 11%;
+  border-radius: 52% 33% 0% 0% / 50% 44% 15% 50%;
+  z-index: 2;
+}
+
+.city {
+  background: $signColor;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border: 4px solid #fff;
+  max-width: 300px;
+  min-width: 150px;
+  display: flex;
+  justify-content:center;
+  align-items:center;
+  font-weight: 600;
+  font-size: 1.8rem;
+  padding: 10px 5px;
+  color: #fff;
+  margin: 5px auto;
+}
+
+.street {
+  background: $streetColor;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border: 3px solid #fff;
+  max-width: 300px;
+  min-width: 150px;
+  display: flex;
+  justify-content:center;
+  align-items:center;
+  font-weight: 600;
+  font-size: 1.3rem;
+  padding: 5px 5px;
+  color: #fff;
+  margin: 5px auto;
+  text-transform: uppercase;
+}
+
+.custom {
+  background: #adab0f;;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border: 3px solid #fff;
+  max-width: 250px;
+  min-width: 150px;
+  display: flex;
+  justify-content:center;
+  align-items:center;
+  font-weight: 600;
+  font-size: 1.6rem;
+  padding: 5px 5px;
+  color: #fff;
+  margin: 5px auto;
+}

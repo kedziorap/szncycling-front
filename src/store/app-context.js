@@ -2,13 +2,28 @@ import React, { useState } from 'react';
 
 const AppContext = React.createContext({
   mobileMode: true,
-  menuIsVisible: false
+  menuIsVisible: false,
+  movies: [],
+  setMovies: () => {},
+  allMovies: null,
+  setAllMovies: () => {},
+  actualPage: null,
+  setActualPage: () => {},
+  searchingPlace: null,
+  setSearchingPlace: () => {},
+  firstTimeOn: null,
+  setFirstTimeOn: () => {},
 });
 
 export const AppContextProvider = (props) => {
   const [isMobile, setIsMobile] = useState(true);
   const [menuIsVisible, setMenuIsVisible] = useState(false);
-
+  const [movies, setMovies] = useState([]);
+  const [allMovies, setAllMovies] = useState(0);
+  const [actualPage, setActualPage] = useState(1);
+  const [searchingPlace, setSearchingPlace] = useState(null);
+  const [firstTimeOn, setFirstTimeOn] = useState(null);
+  
   const setMobileIsActive = () => setIsMobile(true);
   const setMobileIsNotActive = () => setIsMobile(false);
 
@@ -20,6 +35,16 @@ export const AppContextProvider = (props) => {
         setMobileIsNotActive,
         menuIsVisible,
         setMenuIsVisible,
+        movies,
+        setMovies,
+        allMovies,
+        setAllMovies,
+        actualPage,
+        setActualPage,
+        searchingPlace,
+        setSearchingPlace,
+        firstTimeOn,
+        setFirstTimeOn,
       }}
     >
       {props.children}

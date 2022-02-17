@@ -1,0 +1,13 @@
+.wrapper {
+  display: grid;
+  flex-wrap: wrap;
+}
+.all {
+  width: 100%;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  span {
+    font-weight: bold;
+  }
+}

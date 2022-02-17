@@ -1,0 +1,46 @@
+@import "vars";
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  padding-top: 50px;
+  padding: 1rem;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.button {
+  width: 35px;
+  height: 35px;
+  margin: 2px;
+  border: 0;
+  background-color: $color2;
+  color: #fff;
+  cursor: pointer;
+  &:hover {
+    background-color:$color3;
+  }
+  &[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.active {
+  background-color: $color1;
+}
+
+.input {
+  height: 35px;
+  width: 40px;
+  line-height: 2;
+}
+
+.pager {
+  display: block;
+  margin: 5px;
+  font-weight: bold;
+}
+.separator {
+  margin: 0 5px;
+}

@@ -1,0 +1,22 @@
+@import "vars";
+
+.Button {
+  background-color: $color4;
+  border: 1px solid $color4;
+  color: #fff;
+  padding: 5px 10px;
+  cursor: pointer;
+  height: 40px;
+  width: 100%;
+  @include tablet {
+    width: auto;
+  }
+  &:hover {
+    background-color: $color2;
+    border: 1px solid $color2;
+  }
+  &[disabled] {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}

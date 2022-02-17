@@ -7,13 +7,32 @@
   },
   "home": {
     "title": "SznCycling",
-    "text": ["SznCycling to projekt, którego celem jest pokazanie Szczecina od strony rowerzysty. Znajdziesz tu nagrania z przejazdów rowerem po Szczecinie i okolicy."]
+    "text": ["SznCycling to projekt, którego celem jest pokazanie Szczecina od strony rowerzysty. Znajdziesz tu nagrania z przejazdów rowerem po Szczecinie i okolicy."],
+    "stats": "Statystyki",
+    "movies": "Filmów",
+    "places": "Miejsc",
+    "towns": "Odwiedzonych miejscowości",
+    "kilometers": "Przejechanych kilometrów",
+    "hours_recording": "Godzin nagrań",
+    "latest_video": "Najnowsze filmy"
   },
   "tracks": {
-
+    "found_movies": "Znalezionych filmów",
+    "places": "Miejsca",
+    "cities": "Miejscowości",
+    "commune": "gmina",
+    "searching": "Szukam...",
+    "min_length": "Wpisz minimum 3 litery.",
+    "nothing_found": "Nic nie znaleziono.",
+    "search_for": "Znajdź",
+    "search": "Wyszukaj",
+    "show_all": "Pokaż wszystkie"
   },
   "track":{
-
+    "back": "Wróć",
+    "filter_place": "Filtruj miejsca",
+    "clear": "Wyczyść",
+    "nothing_found": "Nic nie znaleziono."
   },
   "about": {
     "title": "O stronie",
@@ -29,7 +48,8 @@
       "Jeżeli masz jakieś pytania, znalazłeś błąd na stronie, masz pomysł na ciekawą wycieczkę rowerową lub potrzebujesz pomocy ze swoją stroną internetową możesz się ze mna skontaktować poniżej."
     ]
   },
-  "settings": {
-
+  "errors": {
+    "connect": "Brak połączenia z siecią.",
+    "occurred": "Wystąpił błąd."
   }
 }

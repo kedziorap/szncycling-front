@@ -1,0 +1,83 @@
+@import 'vars';
+.inputWrapper {
+  position: relative;
+  @include tablet {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+  }
+}
+.dropdown {
+  margin-top: 0;
+  list-style: none;
+  padding: 0;
+  border: 1px solid $color1;
+  background: #fff;
+  z-index: 10;
+  width: 100%;
+  position: absolute;
+  top: calc(100% - 5px);
+  max-height: 200px;
+  overflow-x: auto;
+  z-index:6;
+  li {
+    padding: 5px;
+  }
+}
+.element {
+  border-bottom: 1px solid $color7;
+    cursor: pointer;
+    &:hover {
+      background: $color3;
+    }
+}
+.label {
+  height: 40px;
+  border: 1px solid $color4;
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+  position: relative;
+  font-size: 1.4rem;
+  padding: 5px 30px 5px 5px;
+  
+  >div {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+  }
+  >span {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    background: $color6;
+    width: 20px;
+    height: 100%;
+    color: #fff;
+    right: 0;
+    cursor: pointer;
+  }
+}
+
+.labelInput {
+  font-weight: bold;margin-top: 10px;
+}
+.WrapperSearch {
+  @include tablet {
+    display: flex;
+    button {
+      align-self: flex-end;
+      margin-bottom: 5px;
+      width: 20%;
+      margin-left: 10px;
+    }
+  }
+}
+
+.listTitle {
+  font-style: italic;
+  background-color: $color7;
+  font-size: 0.8em;;
+}
