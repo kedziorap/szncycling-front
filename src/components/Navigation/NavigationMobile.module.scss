@@ -1,0 +1,86 @@
+
+@import 'vars';
+
+.Mobile {
+  height: 100%;
+  background: $color4;
+  position: fixed;
+  right: -200%;
+  min-width: 280px;
+  max-width: 280px;;
+  width: 80%;
+  top: 50px;
+  z-index: 10;
+@include laptop {
+  display: none;
+}
+}
+
+.visible {
+  transition: 0.2s;
+  right: 0;
+  overflow: auto;
+  @include laptop {
+    display: none;
+  }
+  &::after {
+    content: '';
+    height: 100%;
+    width: 200%;
+    display: block;
+    position:absolute;
+    top: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 10;
+    right: 100%;
+    
+  }
+}
+
+.overflow{
+  background: rgba(0,0,0,0.5);
+  @include laptop {
+    display: none;
+  }
+}
+
+.overflowActive {
+
+  z-index: 7;
+  width: 100vw;
+  height: 100%;
+  position: fixed;
+}
+
+.Nav {
+  ul {
+    list-style-type: none;
+    padding: 0;
+    li {
+      border-top: 1px solid $color2;
+    }
+  }
+  a {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #fff;
+    &:hover {
+      background-color: $color3;
+    }
+  }
+  .active {
+    padding-left: 12px;
+    border-left: 3px solid $color2;
+    background-color: $color1;
+    &:hover {
+      background-color: $color1;
+    }
+  }
+}
+
+.lang {
+  display: flex;
+  width: 100%;
+  justify-content:center;
+}

@@ -18,6 +18,7 @@
   }
 }
 .Wrapper {
+  
   max-width: 990px;
   width: 100%;
   margin: 0 auto;
@@ -48,3 +49,34 @@
   }
 }
 
+.Button {
+  width: 55px;
+  height: 50px;
+  border: 0;
+  padding: 0 5px;
+  background: transparent;
+  cursor: pointer;
+  transition: 0.2s;
+  @include laptop {
+    display: none;
+  }
+  span {
+    width: 30px;
+    display: block;
+    height: 3px;
+    background-color: $color5;
+    margin: 7px auto;
+    transition: 0.2s;
+  }
+  &[aria-expanded="true"] {
+    span:nth-of-type(2) {
+      opacity: 0;
+    }
+    span:first-of-type {
+      transform: translateY(11px) rotate(45deg);
+    }
+    span:last-of-type {
+      transform: translateY(-9px) rotate(-45deg);
+    }
+  }
+}

@@ -1,14 +1,17 @@
 import ReactDOM from 'react-dom';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
+import { AppContextProvider } from './store/app-context';
 import './i18n';
 import './index.scss';
 
 
 ReactDOM.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
+    <BrowserRouter>
+      <AppContextProvider>
+        <App />
+      </AppContextProvider>
+    </BrowserRouter>
   , document.getElementById('root')
 );
 

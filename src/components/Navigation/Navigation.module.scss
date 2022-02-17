@@ -1,0 +1,43 @@
+@import 'vars';
+
+.Wrapper {
+  display: none;
+  width: 100%;
+  @include laptop {
+    display: block;
+    justify-self: flex-end;
+    height: 100%;
+  }
+}
+
+.Nav {
+  height: 100%;
+  ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    height: 100%;
+  }
+  a {
+    display: flex;
+    color: #fff;
+    text-decoration: none;
+    height: 100%;
+    padding: 10px;
+    align-items: center;
+    transition: 0.2s background;
+    &:hover {
+      background-color: $color4;
+    }
+    &.active {
+      background-color: $color4;
+    }
+  }
+}
+
+.lang {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}

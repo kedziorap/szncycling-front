@@ -2,5 +2,6 @@
   "menu_home": "Home",
   "menu_tracks": "Tracks",
   "menu_about": "About",
-  "menu_contact": "Contact"
+  "menu_contact": "Contact",
+  "content_home": "Welcome to SznCycling! Some stupid text for example."
 }

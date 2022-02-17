@@ -1,0 +1,26 @@
+@import 'vars';
+
+.Loader {
+  text-align: center;
+  color: $color4;
+  i {
+    
+    font-size: 15rem;
+    display: block;
+    &:before {
+      animation: spinner linear 1.5s infinite ;
+    }
+  }
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0) scale(1);
+  }
+  50%{
+    transform: rotate(180deg) scale(1.3);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
