@@ -1,7 +1,12 @@
 {
-  "menu_home": "Home",
-  "menu_tracks": "Tracks",
-  "menu_about": "About",
-  "menu_contact": "Contact",
-  "content_home": "Welcome to SznCycling! Some stupid text for example."
+  "menu": {
+    "home": "Home ",
+    "tracks": "Tracks",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "home": {
+    "home": "Welcome to SznCycling! Some stupid text for example.",
+    "text": ["SznCycling is a project aimed at showing Szczecin from the cyclist's side. You will find here video recordings of my bicycle trips around Szczecin and the surrounding area."]
+  }
 }

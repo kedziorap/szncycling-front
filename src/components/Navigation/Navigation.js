@@ -3,10 +3,10 @@ import styles from './Navigation.module.scss';
 import useTranslator from '../../hooks/use-translator';
 import LaguageChanger from '../LanguageChanger/LanguageChanger';
 const Navigation = () => {
-  const homePage = useTranslator('menu_home');
-  const tracksPage = useTranslator('menu_tracks');
-  const aboutPage = useTranslator('menu_about');
-  const contactPage = useTranslator('menu_contact');
+  const homePage = useTranslator('menu.home');
+  const tracksPage = useTranslator('menu.tracks');
+  const aboutPage = useTranslator('menu.about');
+  const contactPage = useTranslator('menu.contact');
   return (
     <div className={styles.Wrapper}>
       <nav className={styles.Nav}>

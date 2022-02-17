@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import {NavLink} from 'react-router-dom';
 import AppContext from '../../store/app-context';
 import Navigation from '../Navigation/Navigation';
 
@@ -34,7 +35,7 @@ const Header = () => {
   return (
     <header className={styles.Header}>
       <div className={styles.Wrapper}>
-        <div className={styles.Logo}>SznCycling</div>
+        <NavLink className={styles.Logo} to={'/'}>SznCycling</NavLink>
         {output}
       </div>
     </header>
