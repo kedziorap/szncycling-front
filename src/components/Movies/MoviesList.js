@@ -8,6 +8,7 @@ import Loader from '../UI/Loader';
 import MovieCard from './MovieCard';
 import Pagination from '../UI/Pagination';
 import Searcher from '../Searcher/Searcher';
+import Error from '../UI/Error';
 
 import styles from './MoviesList.module.scss';
 
@@ -134,7 +135,7 @@ const MoviesList = () => {
     <>
     <Searcher/>
       {tracks.length !== 0 && !error && !isLoading && output}
-      {error && !isLoading && <p>Error</p>}
+      {error && !isLoading && <Error error={error} />}
       {isLoading && <Loader />}
       {allTracks > limit && tracks.length > 0 && !error && !isLoading && (
         <Pagination

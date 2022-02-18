@@ -5,7 +5,6 @@ import {
   getSecond,
   getHourFormat,
   selectPlace,
-  getNamePlace,
   cutTime,
 } from '../../helpers/functions';
 import AppContext from '../../store/app-context';
@@ -15,6 +14,7 @@ import useTranslator from '../../hooks/use-translator';
 import YouTube from 'react-youtube';
 import Loader from '../UI/Loader';
 import MoviePlaceManagement from './MoviePlaceManagement';
+import StreetName from '../Streets/StreetName';
 
 import styles from './Movie.module.scss';
 
@@ -144,7 +144,7 @@ const Movie = () => {
             </span>
           </div>
           <div className={styles.actual}>
-            {place && getNamePlace(place, true)}
+            {place && <StreetName place={place} details/>}
           </div>
         </div>
         <MoviePlaceManagement clickOnPlace={clickOnPlace} />

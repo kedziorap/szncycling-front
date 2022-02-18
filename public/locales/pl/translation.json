@@ -51,5 +51,32 @@
   "errors": {
     "connect": "Brak połączenia z siecią.",
     "occurred": "Wystąpił błąd."
+  },
+  "names": {
+    "ulica": "ul. {{place}}",
+    "aleja": "al. {{place}}",
+    "bulwar": "bulwar {{place}}",
+    "skwer": "skwer {{place}}",
+    "plac": "pl. {{place}}",
+    "rondo": "rondo {{place}}",
+    "gmina": "gmina {{commune}}",
+    "droga": "{{place}}",
+    "wieś": "{{place}}",
+    "park": "park {{place}}",
+    "punkt": "{{place}}",
+    "inne": "{{place}}"
+  },
+  "full_names": {
+    "ulica": "ulica",
+    "aleja": "aleja",
+    "bulwar": "bulwar",
+    "skwer": "skwer",
+    "plac": "plac",
+    "rondo": "rondo",
+    "droga": "",
+    "wieś": "",
+    "park": "park",
+    "punkt": "",
+    "inne": ""
   }
 }

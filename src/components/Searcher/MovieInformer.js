@@ -3,7 +3,7 @@ import useTranslator from '../../hooks/use-translator';
 import styles from './MovieInformer.module.scss';
 import AppContext from '../../store/app-context';
 
-import StreetSign from '../StreetSign/StreetSign';
+import StreetSign from '../Streets/StreetSign';
 
 const MovieInformer = (props) => {
   const ctxApp = useContext(AppContext);

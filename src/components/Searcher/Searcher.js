@@ -5,16 +5,18 @@ import React, {
   useRef,
   useEffect,
 } from 'react';
-import Input from '../UI/Input';
-import useInput from '../../hooks/use-input';
 import { get } from '../../api';
-import { debounced, selectPlace } from '../../helpers/functions';
-import { getNamePlace } from '../../helpers/functions';
-import styles from './Searcher.module.scss';
-import MovieInfromer from './MovieInformer';
+import { debounced} from '../../helpers/functions';
 import AppContext from '../../store/app-context';
-import Button from '../UI/Button';
+import useInput from '../../hooks/use-input';
 import useTranslator from '../../hooks/use-translator';
+
+import MovieInfromer from './MovieInformer';
+import Button from '../UI/Button';
+import Input from '../UI/Input';
+import StreetName from '../Streets/StreetName';
+
+import styles from './Searcher.module.scss';
 
 const Searcher = () => {
   const ctxApp = useContext(AppContext);
@@ -128,7 +130,7 @@ const Searcher = () => {
         onClick={() => setPlaceToShow({...place, typePlace: 'place'})}
         className={styles.element}
       >
-        {getNamePlace(place, true)}
+        <StreetName place={place} details/>
       </li>
     );
   });
@@ -139,7 +141,7 @@ const Searcher = () => {
         onClick={() => setPlaceToShow({...place, typePlace: 'city'})}
         className={styles.element}
       >
-        {place.city === place.commune ? <b>{place.city}</b> : <><b>{place.city}</b>, {communeTxt} {place.commune}</>}
+        <StreetName place={place} details onlytowns/>
       </li>
     );
   });
@@ -178,12 +180,13 @@ const Searcher = () => {
 
   let output;
   if (placeSelected) {
+    //{placeSelected.typePlace === 'place'? getNamePlace(placeSelected, true): placeSelected.city === placeSelected.commune ? placeSelected.city : `${placeSelected.city}, ${communeTxt} ${placeSelected.commune}`}
     output = (
       <>
       <div className={styles.inputWrapper}>
         <div className={styles.labelInput}>{searchForTxt}:</div>
         <div className={styles.label}>
-          {placeSelected.typePlace === 'place'? getNamePlace(placeSelected, true): placeSelected.city === placeSelected.commune ? placeSelected.city : `${placeSelected.city}, ${communeTxt} ${placeSelected.commune}`}
+          <StreetName place={placeSelected} details onlytowns={placeSelected.typePlace === 'city'}/>
           <span onClick={clearPlace}>
             <i className="icon-cancel-1" />
           </span>
