@@ -1,6 +1,7 @@
 import { Route, Switch } from 'react-router-dom';
-import './fontello/css/fontello.css';
-
+import { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
+//import './fontello/css/fontello.css';
 
 import Layout from './components/Layout/Layout';
 import Home from './pages/Home';
@@ -8,14 +9,20 @@ import Contact from './pages/Contact';
 import About from './pages/About';
 import Tracks from './pages/Tracks';
 import OneTrack from './pages/OneTrack';
-
+import Loader from './components/UI/Loader';
+import AppContext from './store/app-context';
 function App() {
-
+  const ctxApp = useContext(AppContext);
+  const {setLoadingLang, loadingLang} = ctxApp;
+  const { i18n } = useTranslation();
+  i18n.on('languageChanged', () => {
+    setLoadingLang(false)
+  });
   return (
     <Layout>
       <Switch>
         <Route path="/" exact>
-          <Home/>
+          <Home />
         </Route>
         <Route path="/tracks" exact>
           <Tracks />
@@ -24,12 +31,13 @@ function App() {
           <OneTrack />
         </Route>
         <Route path="/about" exact>
-          <About/>
+          <About />
         </Route>
         <Route path="/contact" exact>
-          <Contact/>
+          <Contact />
         </Route>
       </Switch>
+      {loadingLang && <Loader fullWindow/>}
     </Layout>
   );
 }

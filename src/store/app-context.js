@@ -13,6 +13,8 @@ const AppContext = React.createContext({
   setSearchingPlace: () => {},
   firstTimeOn: null,
   setFirstTimeOn: () => {},
+  loadingLang: true,
+  setLoadingLang: () => {},
 });
 
 export const AppContextProvider = (props) => {
@@ -23,6 +25,7 @@ export const AppContextProvider = (props) => {
   const [actualPage, setActualPage] = useState(1);
   const [searchingPlace, setSearchingPlace] = useState(null);
   const [firstTimeOn, setFirstTimeOn] = useState(null);
+  const [loadingLang, setLoadingLang] = useState(false);
   
   const setMobileIsActive = () => setIsMobile(true);
   const setMobileIsNotActive = () => setIsMobile(false);
@@ -45,6 +48,8 @@ export const AppContextProvider = (props) => {
         setSearchingPlace,
         firstTimeOn,
         setFirstTimeOn,
+        loadingLang,
+        setLoadingLang
       }}
     >
       {props.children}
