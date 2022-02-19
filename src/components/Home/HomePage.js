@@ -23,7 +23,10 @@ const HomePage = () => {
       const { data, status } = res;
       if (pageIsActive) {
         if (status === 200) {
+          const date = Date.now();
           setInfo(data);
+            sessionStorage.setItem('homeTime', date + 600000)
+            sessionStorage.setItem('homeInfo',JSON.stringify(data))
         } else  {
           setError(errorTxt)
         }
@@ -32,9 +35,18 @@ const HomePage = () => {
     });
   };
   useEffect(()=>{
-    getHomeInfo();
+    const date = Date.now();
+    const limit = sessionStorage.getItem('homeTime');
+    const data = JSON.parse(sessionStorage.getItem('homeInfo'));
+    if (limit && data && limit > date) {
+      const data = JSON.parse(sessionStorage.getItem('homeInfo'));
+      setInfo(data);
+      setIsLoaded(true);
+    } else {
+      getHomeInfo();
+    }
     return () => {
-      setPageIsActive(false)
+      setPageIsActive(false);
     }
   },[]);
 
