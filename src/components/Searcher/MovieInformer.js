@@ -9,7 +9,7 @@ const MovieInformer = (props) => {
   const ctxApp = useContext(AppContext);
   const foundMovies = useTranslator('tracks.found_movies')
   const { searchingPlace } = ctxApp;
-  const { all } = props;
+  const { all, isLoading } = props;
   return (
     <div className={styles.wrapper}>
       {searchingPlace && (
@@ -20,7 +20,7 @@ const MovieInformer = (props) => {
           typePlace={searchingPlace.typePlace}
         />
       )}
-      <div className={styles.all}>{foundMovies}: <span>{all}</span></div>
+      <div className={styles.all}>{foundMovies}: <span>{isLoading ? '': all}</span></div>
     </div>
   );
 };

@@ -1,7 +1,6 @@
 import { Route, Switch } from 'react-router-dom';
 import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-//import './fontello/css/fontello.css';
 
 import Layout from './components/Layout/Layout';
 import Home from './pages/Home';

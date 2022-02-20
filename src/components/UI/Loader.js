@@ -1,5 +1,6 @@
 import styles from './Loader.module.scss';
-import icon from '../../assets/loader.svg';
+import {ReactComponent as Icon} from '../../assets/loader.svg';
+
 const Loader = (props) => {
   const { fullWindow, initial } = props;
   let content;
@@ -13,7 +14,7 @@ const Loader = (props) => {
     content = <div className={styles.overlay} />
   } else {
     content = <div className={styles.Loader}>
-      <img src={icon} alt="" />
+      <Icon/>
     </div>
   }
   return (

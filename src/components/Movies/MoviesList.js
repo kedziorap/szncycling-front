@@ -133,7 +133,7 @@ const MoviesList = () => {
   const output = <>{lista}</>;
   return (
     <>
-    <Searcher/>
+    <Searcher isLoading={isLoading}/>
       {tracks.length !== 0 && !error && !isLoading && output}
       {error && !isLoading && <Error error={error} />}
       {isLoading && <Loader />}

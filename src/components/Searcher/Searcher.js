@@ -18,7 +18,8 @@ import StreetName from '../Streets/StreetName';
 
 import styles from './Searcher.module.scss';
 
-const Searcher = () => {
+const Searcher = (props) => {
+  const {isLoading: listIsLoading} = props;
   const ctxApp = useContext(AppContext);
   const {
     searchingPlace,
@@ -42,7 +43,6 @@ const Searcher = () => {
   const errorTxt = useTranslator('errors.occurred');
   const placesTxt = useTranslator('tracks.places');
   const citiesTxt = useTranslator('tracks.cities');
-  const communeTxt = useTranslator('tracks.commune');
   const searchingTxt = useTranslator('tracks.searching');
   const minLengthTxt = useTranslator('tracks.min_length');
   const nothingFoundTxt = useTranslator('tracks.nothing_found');
@@ -220,7 +220,7 @@ const Searcher = () => {
   return (
     <div>
       <div className={styles.WrapperSearch}>{output}</div>
-      <MovieInfromer all={allMovies} />
+      <MovieInfromer all={allMovies} isLoading={listIsLoading}/>
     </div>
   );
 };
