@@ -5,7 +5,7 @@ const MovieContext = React.createContext({
   place: null,
   listPlace: [],
   setMovie: (movie)=>{},
-  setPlace: (place)=>{},
+  setPlace: (place)=>{}
 })
 
 export const MovieContextProvider = (props) => {
@@ -26,7 +26,7 @@ export const MovieContextProvider = (props) => {
       listPlace,
       setSelectMovie,
       setPlace,
-      setListPlace
+      setListPlace,
     }}>
       {props.children}
     </MovieContext.Provider>

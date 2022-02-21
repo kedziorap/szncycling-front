@@ -1,13 +1,18 @@
-import { useContext } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {modeActions} from '../../redux/slices/mode';
 import {NavLink} from 'react-router-dom';
-import AppContext from '../../store/app-context';
 import Navigation from '../Navigation/Navigation';
 
 import styles from './Header.module.scss';
 
 const Header = () => {
-  const ctxApp = useContext(AppContext);
-  const { setMenuIsVisible, menuIsVisible, mobileMode } = ctxApp;
+  const dispatch = useDispatch();
+  const mobileMode = useSelector((state) => state.mode.mobileMode);
+  const menuIsVisible = useSelector((state) => state.mode.menuIsVisible);
+  
+  const setMenuIsVisible =() => {
+    dispatch(modeActions.toggleMenu())
+  }
   let output;
   if (mobileMode) {
     output = (
@@ -17,7 +22,7 @@ const Header = () => {
           className={styles.Button}
           aria-label="Toggle navigation"
           aria-expanded={menuIsVisible}
-          onClick={() => setMenuIsVisible((prevState) => !prevState)}
+          onClick={() => setMenuIsVisible()}
         >
           <span></span>
           <span></span>

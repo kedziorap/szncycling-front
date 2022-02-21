@@ -1,20 +1,19 @@
 import {useState} from 'react';
 import { useTranslation } from 'react-i18next';
-import { useContext } from 'react';
-import AppContext from '../../store/app-context';
+import { useDispatch } from 'react-redux';
+import { langActions } from '../../redux/slices/lang'
 
 import styles from './LanguageChanger.module.scss';
 import pl_flag from '../../assets/lang/pl.png';
 import en_flag from '../../assets/lang/en.png';
 
 const LanguageChanger = () => {
-  const ctxApp = useContext(AppContext);
-  const {setLoadingLang} = ctxApp;
+  const dispatch = useDispatch();
 
   const {i18n} = useTranslation();
   const [activeLang, setActiveLang] = useState('pl');
   const changeLanguage = (lang) => {
-    setLoadingLang(true)
+    dispatch(langActions.isLoading())
     i18n.changeLanguage(lang);
     setActiveLang(lang);
   }

@@ -1,20 +1,21 @@
 import styles from './NavigationMobile.module.scss';
-import { useContext } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { modeActions } from '../../redux/slices/mode'
 import { NavLink } from 'react-router-dom';
-import AppContext from '../../store/app-context';
 import useTranslator from '../../hooks/use-translator';
 import LanguageChanger from '../LanguageChanger/LanguageChanger';
 
 const NavigationMobile = () => {
-  const ctxApp = useContext(AppContext);
-  const { menuIsVisible, setMenuIsVisible } = ctxApp;
+  const dispatch = useDispatch();
+  const menuIsVisible = useSelector((state) => state.mode.menuIsVisible);
+
   const homePage = useTranslator('menu.home');
   const tracksPage = useTranslator('menu.tracks');
   const aboutPage = useTranslator('menu.about');
   const contactPage = useTranslator('menu.contact');
 
   const closeDrawerHandler = () => {
-    setMenuIsVisible(false);
+    dispatch(modeActions.toggleMenu())
   }
   return (
     <>

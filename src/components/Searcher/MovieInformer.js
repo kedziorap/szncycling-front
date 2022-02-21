@@ -1,14 +1,12 @@
-import { useContext } from 'react';
+import { useSelector } from 'react-redux';
 import useTranslator from '../../hooks/use-translator';
 import styles from './MovieInformer.module.scss';
-import AppContext from '../../store/app-context';
 
 import StreetSign from '../Streets/StreetSign';
 
 const MovieInformer = (props) => {
-  const ctxApp = useContext(AppContext);
   const foundMovies = useTranslator('tracks.found_movies')
-  const { searchingPlace } = ctxApp;
+  const searchingPlace = useSelector((state) => state.movies.searchingPlace);
   const { all, isLoading } = props;
   return (
     <div className={styles.wrapper}>

@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useContext } from 'react';
+import {useSelector} from 'react-redux';
 import { useLocation, useHistory } from 'react-router-dom';
 import { get } from '../../api/index';
 import {
@@ -7,7 +8,6 @@ import {
   selectPlace,
   cutTime,
 } from '../../helpers/functions';
-import AppContext from '../../store/app-context';
 import MovieContext from '../../store/movie-context';
 import useTranslator from '../../hooks/use-translator';
 
@@ -25,10 +25,8 @@ const Movie = () => {
   const history = useHistory();
   const location = useLocation();
   const ctxMovie = useContext(MovieContext);
-  const ctxApp = useContext(AppContext);
-
+  const firstTimeOn = useSelector((state) => state.movie.firstTimeOn)
   const { setSelectMovie, setPlace, place, movie } = ctxMovie;
-  const {firstTimeOn} = ctxApp;
   const apthArr = location.pathname.split('/');
   const id = apthArr[apthArr.length - 1];
 
