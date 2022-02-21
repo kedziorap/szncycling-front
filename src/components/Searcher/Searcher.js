@@ -1,13 +1,13 @@
 import React, {
   useState,
   useCallback,
-  useContext,
   useRef,
   useEffect,
 } from 'react';
 import { get } from '../../api';
 import { debounced} from '../../helpers/functions';
-import AppContext from '../../store/app-context';
+import { useDispatch, useSelector } from 'react-redux';
+import { moviesActions } from '../../redux/slices/movies';
 import useInput from '../../hooks/use-input';
 import useTranslator from '../../hooks/use-translator';
 
@@ -20,14 +20,13 @@ import styles from './Searcher.module.scss';
 
 const Searcher = (props) => {
   const {isLoading: listIsLoading} = props;
-  const ctxApp = useContext(AppContext);
-  const {
-    searchingPlace,
-    setSearchingPlace,
-    allMovies,
-    actualPage,
-    setActualPage,
-  } = ctxApp;
+  const dispatch = useDispatch();
+  const searchingPlace = useSelector((state) => state.movies.searchingPlace);
+  const allMovies = useSelector((state) => state.movies.allMovies);
+  const actualPage = useSelector((state) => state.movies.page);
+  const setActualPage = (number) => dispatch(moviesActions.setPage(number));
+  const setSearchingPlace = (place) => dispatch(moviesActions.setSearchingPlace(place));
+  
   const [placesList, setPlacesList] = useState([]);
   const [citiesList, setCitiesList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);

@@ -1,21 +1,22 @@
 import ReactDOM from 'react-dom';
 import App from './App';
-import {Suspense} from 'react';
+import { Suspense } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { AppContextProvider } from './store/app-context';
+import { Provider } from 'react-redux';
+import store from './redux/index';
 import './i18n';
 import './index.scss';
 
 import Loader from './components/UI/Loader';
 
 ReactDOM.render(
-  <Suspense fallback={<Loader initial/>}>
+  <Suspense fallback={<Loader initial />}>
     <BrowserRouter>
-      <AppContextProvider>
-        <App />
-      </AppContextProvider>
+      <Provider store={store}>
+          <App />
+      </Provider>
     </BrowserRouter>
-    </Suspense>
+  </Suspense>
   , document.getElementById('root')
 );
 

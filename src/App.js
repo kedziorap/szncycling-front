@@ -1,5 +1,6 @@
 import { Route, Switch } from 'react-router-dom';
-import { useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { langActions } from './redux/slices/lang';
 import { useTranslation } from 'react-i18next';
 
 import Layout from './components/Layout/Layout';
@@ -9,13 +10,14 @@ import About from './pages/About';
 import Tracks from './pages/Tracks';
 import OneTrack from './pages/OneTrack';
 import Loader from './components/UI/Loader';
-import AppContext from './store/app-context';
 function App() {
-  const ctxApp = useContext(AppContext);
-  const {setLoadingLang, loadingLang} = ctxApp;
+  const loadingLang = useSelector((state) => state.language.loadingLang);
+  const dispatch = useDispatch();
   const { i18n } = useTranslation();
   i18n.on('languageChanged', () => {
-    setLoadingLang(false)
+    if (loadingLang) {
+      dispatch(langActions.notLoading())
+    }
   });
   return (
     <Layout>
@@ -36,7 +38,7 @@ function App() {
           <Contact />
         </Route>
       </Switch>
-      {loadingLang && <Loader fullWindow/>}
+      {loadingLang && <Loader fullWindow />}
     </Layout>
   );
 }

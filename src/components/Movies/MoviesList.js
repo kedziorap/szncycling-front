@@ -1,6 +1,7 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import AppContext from '../../store/app-context';
+import { useDispatch, useSelector } from 'react-redux';
+import { moviesActions } from '../../redux/slices/movies';
 import { get } from '../../api';
 import useTranslator from '../../hooks/use-translator';
 
@@ -17,16 +18,14 @@ const MoviesList = () => {
 
   const limit = 24;
   const history = useHistory();
-
-  const ctxApp = useContext(AppContext);
-  const {
-    movies: tracks,
-    allMovies: allTracks,
-    setAllMovies: setAllTracks,
-    actualPage,
-    searchingPlace,
-    setActualPage
-  } = ctxApp;
+  const dispatch = useDispatch();
+  const tracks = useSelector((state) => state.movies.movies);
+  const actualPage = useSelector((state) => state.movies.page);
+  const allTracks = useSelector((state) => state.movies.allMovies);
+  const searchingPlace = useSelector((state) => state.movies.searchingPlace)
+  const setAllTracks = (number) => dispatch(moviesActions.setAllMovies(number));
+  const setActualPage = (number) => dispatch(moviesActions.setPage(number));
+  const setMovies = (list) => dispatch(moviesActions.setMovies(list));
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -42,10 +41,10 @@ const MoviesList = () => {
       const { data, status } = res;
       if (pageActive) {
         if (status === 200) {
-          ctxApp.setMovies(data.tracks);
+          setMovies(data.tracks);
           setAllTracks(data.allTracks);
         } else if (status === 404) {
-          ctxApp.setMovies([]);
+          setMovies([]);
           setError(errorConnectTxt);
         } else {
           setError(errorTxt);
@@ -63,10 +62,10 @@ const MoviesList = () => {
       //console.log(data);
       if (pageActive) {
         if (status === 200) {
-          ctxApp.setMovies(data.tracks);
+          setMovies(data.tracks);
           setAllTracks(data.allTracks);
         } else if (status === 404) {
-          ctxApp.setMovies([]);
+          setMovies([]);
           setError(errorConnectTxt);
         } else {
           setError(errorTxt);
@@ -83,10 +82,10 @@ const MoviesList = () => {
       //console.log(data);
       if (pageActive) {
         if (status === 200) {
-          ctxApp.setMovies(data.tracks);
+          setMovies(data.tracks);
           setAllTracks(data.allTracks);
         } else if (status === 404) {
-          ctxApp.setMovies([]);
+          setMovies([]);
           setError(errorConnectTxt);
         } else {
           setError(errorTxt);
@@ -100,7 +99,7 @@ const MoviesList = () => {
   useEffect(() => {
     if (actualPage === 1) history.push(`/tracks?page=${actualPage}`);
     if (searchingPlace) {
-      if(searchingPlace.typePlace === 'place') {
+      if (searchingPlace.typePlace === 'place') {
         getTrackByPlace(searchingPlace.id);
       } else {
         getTrackByCity(searchingPlace.city);
@@ -112,7 +111,7 @@ const MoviesList = () => {
   }, [actualPage, searchingPlace]);
 
   useEffect(() => {
-    return ()=> {
+    return () => {
       setPageActive(false)
     }
   }, []);
@@ -133,7 +132,7 @@ const MoviesList = () => {
   const output = <>{lista}</>;
   return (
     <>
-    <Searcher isLoading={isLoading}/>
+      <Searcher isLoading={isLoading} />
       {tracks.length !== 0 && !error && !isLoading && output}
       {error && !isLoading && <Error error={error} />}
       {isLoading && <Loader />}
