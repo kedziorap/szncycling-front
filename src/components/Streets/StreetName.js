@@ -5,9 +5,7 @@ const StreetName = (props) => {
   const { name, name_short, city, type, commune } = place;
 
   const mainName = shortname ? name_short : name;
-
-
-  const myName = useTranslator(`names.${type}`, { place: mainName })
+  const myName = useTranslator(`names.${type||'inne'}`, { place: mainName })
   const communeName = useTranslator(`names.gmina`, { commune })
   let result;
   if (onlytowns) {

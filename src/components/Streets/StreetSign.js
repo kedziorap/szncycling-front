@@ -5,7 +5,7 @@ import styles from './StreetSign.module.scss';
 const StreetSign = (props) => {
   const { name, city, type, typePlace } = props;
 
-  const myType = useTranslator(`full_names.${type}`);
+  const myType = useTranslator(`full_names.${type || 'inne'}`);
   let sign;
   if (typePlace === 'city') {
     sign = <div className={styles.city}>{city}</div>;
