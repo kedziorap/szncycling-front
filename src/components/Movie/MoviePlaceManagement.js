@@ -50,7 +50,7 @@ const MoviePlaceManagement = (props) => {
           {clearTxt}
         </Button>
       </div>
-      <ul className={styles.list}>{listElements.length ? listElements : <li>{nothingFoundTxt}</li>}</ul>
+      <ul className={styles.list}>{listElements.length ? listElements : <li className={styles.listEmpty}>{nothingFoundTxt}</li>}</ul>
     </div>
   );
 };

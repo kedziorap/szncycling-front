@@ -17,11 +17,14 @@
   width: 100%;
   position: absolute;
   top: calc(100% - 5px);
-  max-height: 200px;
+  max-height: 300px;
   overflow-x: auto;
   z-index:6;
   li {
-    padding: 5px;
+    padding: 15px 5px;
+    @include tablet {
+      padding: 8px 5px;
+    }
   }
 }
 .element {
@@ -32,16 +35,16 @@
     }
 }
 .label {
-  height: 40px;
+  height: 50px;
   border: 1px solid $color4;
   display: flex;
   align-items: center;
   margin: 5px 0;
   position: relative;
-  font-size: 1.4rem;
+  font-size: 1.7rem;
   padding: 5px 30px 5px 5px;
   
-  >div {
+  > div {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -80,5 +83,6 @@
 .listTitle {
   font-style: italic;
   background-color: $color7;
-  font-size: 0.8em;;
+  font-size: 0.8em;
+  padding: 7px 5px !important;
 }
