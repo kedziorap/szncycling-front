@@ -63,6 +63,7 @@
 
 .labelInput {
   font-weight: bold;margin-top: 10px;
+  display: block;
 }
 .WrapperSearch {
   @include tablet {
