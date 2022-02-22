@@ -198,7 +198,7 @@ const Searcher = (props) => {
     output = (
       <>
         <div className={styles.inputWrapper}>
-          <div className={styles.labelInput}>{searchForTxt}:</div>
+          <label className={styles.labelInput} htmlFor="mysearcher">{searchForTxt}:</label>
           <Input
             value={placeName}
             onChange={onChangeHandler}
@@ -207,6 +207,7 @@ const Searcher = (props) => {
             ref={inputEl}
             onFocus={onFocusHandler}
             onBlur={onBlurHandler}
+            id="mysearcher"
           />
           {dropdown}
         </div>
