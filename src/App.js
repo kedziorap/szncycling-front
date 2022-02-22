@@ -9,6 +9,7 @@ import Contact from './pages/Contact';
 import About from './pages/About';
 import Tracks from './pages/Tracks';
 import OneTrack from './pages/OneTrack';
+import NotFound from './pages/NotFound';
 import Loader from './components/UI/Loader';
 function App() {
   const loadingLang = useSelector((state) => state.language.loadingLang);
@@ -36,6 +37,9 @@ function App() {
         </Route>
         <Route path="/contact" exact>
           <Contact />
+        </Route>
+        <Route path="/*" exact>
+          <NotFound/>
         </Route>
       </Switch>
       {loadingLang && <Loader fullWindow />}

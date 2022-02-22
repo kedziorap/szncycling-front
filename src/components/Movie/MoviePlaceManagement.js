@@ -1,8 +1,8 @@
 import { useContext, useState } from 'react';
-import MoviePlace from './MoviePlace';
 import MovieContext from '../../store/movie-context';
 import useTranslator from '../../hooks/use-translator';
 
+import MoviePlace from './MoviePlace';
 import Button from '../UI/Button';
 
 import styles from './MoviePlaceManagement.module.scss';

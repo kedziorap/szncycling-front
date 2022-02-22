@@ -15,6 +15,7 @@ import YouTube from 'react-youtube';
 import Loader from '../UI/Loader';
 import MoviePlaceManagement from './MoviePlaceManagement';
 import StreetName from '../Streets/StreetName';
+import NotFound from '../404/404';
 
 import styles from './Movie.module.scss';
 
@@ -49,6 +50,8 @@ const Movie = () => {
         setSelectMovie(data);
       } else if (status === 404) {
         setError(errorConnectTxt);
+      } else if (data.message === 'Zasób nie istnieje') {
+        setError('ERROR404');
       } else {
         setError(errorTxt);
       }
@@ -77,11 +80,14 @@ const Movie = () => {
     setPlace(place);
   };
   const setTimer = async () => {
-    const timer = await secondMovie.current.internalPlayer.getCurrentTime();
-    valueTime = getHourFormat(Math.ceil(timer));
-    const placeToShow = selectPlace(movie.places, valueTime);
-    if (placeToShow !== place) {
-      setPlace(placeToShow);
+    if  (!error) {
+      const timer = await secondMovie.current.internalPlayer.getCurrentTime();
+      valueTime = getHourFormat(Math.ceil(timer));
+      const placeToShow = selectPlace(movie.places, valueTime);
+      if (placeToShow !== place) {
+        setPlace(placeToShow);
+      }
+
     }
   };
 
@@ -148,6 +154,9 @@ const Movie = () => {
         <MoviePlaceManagement clickOnPlace={clickOnPlace} />
       </>
     );
+  }
+  if (error ==='ERROR404') {
+    return <NotFound/>
   }
   return (
     <div>

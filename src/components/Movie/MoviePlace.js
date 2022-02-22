@@ -1,5 +1,4 @@
 import styles from './MoviePlace.module.scss';
-import { getNamePlace } from '../../helpers/functions';
 
 import StreetName from '../Streets/StreetName';
 

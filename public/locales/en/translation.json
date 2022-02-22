@@ -78,5 +78,8 @@
     "park": "park",
     "punkt": "",
     "inne": ""
+  },
+  "not_found": {
+    "paragraph": "Sorry, page you are looking for doesn't exist."
   }
 }
