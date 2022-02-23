@@ -30,7 +30,7 @@
 .element {
   border-bottom: 1px solid $color7;
     cursor: pointer;
-    &:hover {
+    &:hover, &:focus {
       background: $color3;
     }
 }

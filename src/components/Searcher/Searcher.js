@@ -5,7 +5,7 @@ import React, {
   useEffect,
 } from 'react';
 import { get } from '../../api';
-import { debounced} from '../../helpers/functions';
+import { debounced } from '../../helpers/functions';
 import { useDispatch, useSelector } from 'react-redux';
 import { moviesActions } from '../../redux/slices/movies';
 import useInput from '../../hooks/use-input';
@@ -19,14 +19,14 @@ import StreetName from '../Streets/StreetName';
 import styles from './Searcher.module.scss';
 
 const Searcher = (props) => {
-  const {isLoading: listIsLoading} = props;
+  const { isLoading: listIsLoading } = props;
   const dispatch = useDispatch();
   const searchingPlace = useSelector((state) => state.movies.searchingPlace);
   const allMovies = useSelector((state) => state.movies.allMovies);
   const actualPage = useSelector((state) => state.movies.page);
   const setActualPage = (number) => dispatch(moviesActions.setPage(number));
   const setSearchingPlace = (place) => dispatch(moviesActions.setSearchingPlace(place));
-  
+
   const [placesList, setPlacesList] = useState([]);
   const [citiesList, setCitiesList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -36,6 +36,7 @@ const Searcher = (props) => {
   const [error, setError] = useState(false)
   const [pageIsActive, setPageIsActive] = useState(true)
   const inputEl = useRef(null);
+  const dropRef = useRef(null);
   const { value: placeName, setValue: setPlaceName } = useInput();
 
   const errorConnectTxt = useTranslator('errors.connect');
@@ -53,12 +54,48 @@ const Searcher = (props) => {
     debounced((nextValue) => getPlaces(nextValue), 500),
     []
   );
+
   useEffect(() => {
     setInitial(false);
     return () => {
       setPageIsActive(false)
     }
   }, []);
+  useEffect(() => {
+    const scrollerFn = (e) => {
+      if (["ArrowUp", "ArrowDown"].indexOf(e.code) > -1 && isActive) {
+        e.preventDefault();
+      }
+    }
+    window.addEventListener("keydown", scrollerFn, false);
+    return () => {
+      window.removeEventListener("keydown", scrollerFn, false);
+    }
+  }, [isActive]);
+
+  const handleRef = (e) => {
+    const index = + e.target.dataset.index;
+    const all = dropRef.current.querySelectorAll('li[tabindex="-1"]');
+    if (e.keyCode === 13) {
+      e.target.click()
+    }
+    if (e.keyCode === 40) {
+      if (index + 1 < all.length) {
+        const newIndex = index + 1;
+
+        all[newIndex].focus()
+      }
+    }
+    if (e.keyCode === 38) {
+      if (index - 1 >= 0) {
+        const newIndex = index - 1;
+        all[newIndex].focus()
+      } else {
+        inputEl.current.focus()
+      }
+    }
+  }
+
   const getPlaces = (phrase) => {
     setError(false);
     get(`places?search=${phrase}`).then((res) => {
@@ -86,11 +123,16 @@ const Searcher = (props) => {
       debounceGet(phrase);
     }
   };
+  const onKeyDown = (event) => {
+    if (event.keyCode === 40 && dropRef.current) {
+      inputEl.current.blur()
+      dropRef.current.querySelectorAll('li[tabindex="-1"]')[0].focus()
+    }
+  }
 
   const setPlaceToShow = (place) => {
-    //setSearchingPlace(place);
+
     setPlaceSelected(place);
-    // setInitial(false);
   };
 
   const onFocusHandler = () => {
@@ -99,12 +141,15 @@ const Searcher = (props) => {
 
   const onBlurHandler = () => {
     setTimeout(() => {
-      setIsActive(false);
+      const elem = document.activeElement;
+      if (+elem.getAttribute('tabindex') !== -1) {
+        setIsActive(false)
+      }
+
     }, 500);
   };
 
   const clearPlace = () => {
-    //setSearchingPlace(null);
     setPlaceSelected(null);
     setPlaceName('');
   };
@@ -114,7 +159,6 @@ const Searcher = (props) => {
     setSearchingPlace(placeSelected);
     setPlaceSelected(null);
     setPlaceName('')
-   // console.log('selected');
   };
 
   const resetList = () => {
@@ -122,34 +166,45 @@ const Searcher = (props) => {
     if (actualPage !== 1) setActualPage(1);
   };
 
-  const places = placesList.map((place) => {
+  const places = placesList.map((place, index) => {
     return (
       <li
+        tabIndex="-1"
         key={place.id}
-        onClick={() => setPlaceToShow({...place, typePlace: 'place'})}
+        data-index={index}
+        onClick={() => setPlaceToShow({ ...place, typePlace: 'place' })}
         className={styles.element}
       >
-        <StreetName place={place} details/>
+        <StreetName place={place} details />
       </li>
     );
   });
-  const cities = citiesList.map((place) => {
+  const cities = citiesList.map((place, index) => {
     return (
       <li
+        tabIndex="-1"
         key={place.id}
-        onClick={() => setPlaceToShow({...place, typePlace: 'city'})}
+        data-index={index + places.length}
+        onClick={() => setPlaceToShow({ ...place, typePlace: 'city' })}
         className={styles.element}
       >
-        <StreetName place={place} details onlytowns/>
+        <StreetName place={place} details onlytowns />
       </li>
     );
   });
-
+  const myBlu = () => {
+    setTimeout(() => {
+      const elem = document.activeElement;
+      if (+elem.getAttribute('tabindex') !== -1) {
+        setIsActive(false)
+      }
+    }, 500);
+  }
   let dropdown;
   if (error && isActive) {
-   dropdown = <ul className={styles.dropdown}>
-        <li>{error}</li>
-      </ul>
+    dropdown = <ul className={styles.dropdown}>
+      <li>{error}</li>
+    </ul>
   } else if (isLoading && placeName.length > 2 && isActive) {
     dropdown = (
       <ul className={styles.dropdown}>
@@ -163,11 +218,11 @@ const Searcher = (props) => {
       </ul>
     );
   } else if (placeName.length > 2 && (placesList.length || citiesList.length) && isActive) {
-    dropdown = <ul className={styles.dropdown}>
-    {places.length ? <><li className={styles.listTitle}>{placesTxt}</li>{places}</>:null}
-    {cities.length ? <><li className={styles.listTitle}>{citiesTxt}</li>{cities}</>:null}
+    dropdown = <ul ref={dropRef} onKeyDown={handleRef} onBlur={myBlu} className={`${styles.dropdown}`}>
+      {places.length ? <><li className={styles.listTitle}>{placesTxt}</li>{places}</> : null}
+      {cities.length ? <><li className={styles.listTitle}>{citiesTxt}</li>{cities}</> : null}
     </ul>;
-  } else if (placesList.length === 0 && citiesList.length === 0 &&isActive) {
+  } else if (placesList.length === 0 && citiesList.length === 0 && isActive) {
     dropdown = (
       <ul className={styles.dropdown}>
         <li>{nothingFoundTxt}</li>
@@ -179,17 +234,16 @@ const Searcher = (props) => {
 
   let output;
   if (placeSelected) {
-    //{placeSelected.typePlace === 'place'? getNamePlace(placeSelected, true): placeSelected.city === placeSelected.commune ? placeSelected.city : `${placeSelected.city}, ${communeTxt} ${placeSelected.commune}`}
     output = (
       <>
-      <div className={styles.inputWrapper}>
-        <div className={styles.labelInput}>{searchForTxt}:</div>
-        <div className={styles.label}>
-          <StreetName place={placeSelected} details onlytowns={placeSelected.typePlace === 'city'}/>
-          <span onClick={clearPlace}>
-            <i className="icon-cancel-1" />
-          </span>
-        </div>
+        <div className={styles.inputWrapper}>
+          <div className={styles.labelInput}>{searchForTxt}:</div>
+          <div className={styles.label}>
+            <StreetName place={placeSelected} details onlytowns={placeSelected.typePlace === 'city'} />
+            <span onClick={clearPlace}>
+              <i className="icon-cancel-1" />
+            </span>
+          </div>
         </div>
         <Button onClick={searchPlaceToShow}>{searchBtnTxt}</Button>
       </>
@@ -202,6 +256,7 @@ const Searcher = (props) => {
           <Input
             value={placeName}
             onChange={onChangeHandler}
+            onKeyDown={onKeyDown}
             isValid={true}
             maxlength="20"
             ref={inputEl}
@@ -212,7 +267,7 @@ const Searcher = (props) => {
           {dropdown}
         </div>
         <Button onClick={resetList} disabled={!searchingPlace}>
-         {showAllTxt}
+          {showAllTxt}
         </Button>
       </>
     );
@@ -220,7 +275,7 @@ const Searcher = (props) => {
   return (
     <div>
       <div className={styles.WrapperSearch}>{output}</div>
-      <MovieInfromer all={allMovies} isLoading={listIsLoading}/>
+      <MovieInfromer all={allMovies} isLoading={listIsLoading} />
     </div>
   );
 };
