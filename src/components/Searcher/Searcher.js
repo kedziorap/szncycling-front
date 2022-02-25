@@ -2,7 +2,8 @@ import React, {
   useState,
   useCallback,
   useRef,
-  useEffect
+  useEffect,
+  useReducer
 } from 'react';
 import { get } from '../../api';
 import { debounced } from '../../helpers/functions';
@@ -17,7 +18,36 @@ import Input from '../UI/Input';
 import StreetName from '../Streets/StreetName';
 
 import styles from './Searcher.module.scss';
-
+const stateReducer = (state, action) => {
+  if (action.type === 'INPUT') {
+    return {
+      active: true,
+      loading: true
+    }
+  }
+  if (action.type === 'FOCUS') {
+    return {
+      active: true,
+      loading: false
+    }
+  }
+  if (action.type === 'BLUR') {
+    return {
+      active: false,
+      loading: false
+    }
+  }
+  if (action.type === 'LOAD') {
+    return {
+      active: state.active,
+      loading: false
+    }
+  }
+  return {
+    loading: false,
+    active: false
+  }
+}
 const Searcher = (props) => {
   const { isLoading: listIsLoading } = props;
   const dispatch = useDispatch();
@@ -27,12 +57,10 @@ const Searcher = (props) => {
   const setActualPage = (number) => dispatch(moviesActions.setPage(number));
   const setSearchingPlace = (place) => dispatch(moviesActions.setSearchingPlace(place));
 
+  const [state, dispatchState] = useReducer(stateReducer, {loading: false, active: false})
   const [placesList, setPlacesList] = useState([]);
   const [citiesList, setCitiesList] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isActive, setIsActive] = useState(false);
   const [placeSelected, setPlaceSelected] = useState(null);
-  const [initial, setInitial] = useState(true);
   const [error, setError] = useState(false)
   const [pageIsActive, setPageIsActive] = useState(true)
   const inputEl = useRef(null);
@@ -56,14 +84,13 @@ const Searcher = (props) => {
   );
 
   useEffect(() => {
-    setInitial(false);
     return () => {
       setPageIsActive(false)
     }
   }, []);
   useEffect(() => {
     const scrollerFn = (e) => {
-      if (["ArrowUp", "ArrowDown"].indexOf(e.code) > -1 && isActive) {
+      if (["ArrowUp", "ArrowDown"].indexOf(e.code) > -1 && state.active) {
         e.preventDefault();
       }
     }
@@ -71,13 +98,13 @@ const Searcher = (props) => {
     return () => {
       window.removeEventListener("keydown", scrollerFn, false);
     }
-  }, [isActive]);
+  }, [state.active]);
 
   const handleRef = (e) => {
     const index = + e.target.dataset.index;
     const all = dropRef.current.querySelectorAll('li[tabindex="-1"]');
     if (e.keyCode === 13) {
-      e.target.click()
+      e.target.click();
     }
     if (e.keyCode === 40) {
       if (index + 1 < all.length) {
@@ -101,8 +128,8 @@ const Searcher = (props) => {
     get(`places?search=${phrase}`).then((res) => {
       if (pageIsActive) {
         const { data, status } = res;
-        //console.log(data);
-        setIsLoading((prev) => false);
+        //setIsLoading(false);
+        dispatchState({type: 'LOAD'});
         if (status === 200) {
           setPlacesList(data.places);
           setCitiesList(data.cities)
@@ -119,7 +146,7 @@ const Searcher = (props) => {
     const phrase = event.target.value;
     setPlaceName(phrase);
     if (phrase.length > 2) {
-      setIsLoading(true);
+      dispatchState({type: 'INPUT'});
       debounceGet(phrase);
     }
   };
@@ -131,19 +158,19 @@ const Searcher = (props) => {
   }
 
   const setPlaceToShow = (place) => {
-
+    dispatchState({type: 'BLUR'});
     setPlaceSelected(place);
   };
 
   const onFocusHandler = () => {
-    setIsActive(true);
+    dispatchState({type: 'FOCUS'});
   };
 
   const onBlurHandler = () => {
     setTimeout(() => {
       const elem = document.activeElement;
       if (+elem.getAttribute('tabindex') !== -1) {
-        setIsActive( (prev) => false)
+        dispatchState({type: 'BLUR'});
       }
 
     }, 500);
@@ -156,6 +183,7 @@ const Searcher = (props) => {
 
   const searchPlaceToShow = () => {
     setActualPage(1);
+    dispatchState({type:''});
     setSearchingPlace(placeSelected);
     setPlaceSelected(null);
     setPlaceName('')
@@ -196,33 +224,33 @@ const Searcher = (props) => {
     setTimeout(() => {
       const elem = document.activeElement;
       if (+elem.getAttribute('tabindex') !== -1) {
-        setIsActive((prev) =>false)
+        dispatchState({type: 'FOCUS'});
       }
     }, 500);
   }
   let dropdown;
-  if (error && isActive) {
+  if (error && state.active) {
     dropdown = <ul className={styles.dropdown}>
       <li>{error}</li>
     </ul>
-  } else if (isLoading && placeName.length > 2 && isActive) {
+  } else if (state.loading && placeName.length > 2 && state.active) {
     dropdown = (
       <ul className={styles.dropdown}>
         <li>{searchingTxt}</li>
       </ul>
     );
-  } else if (placeName.length < 3 && isActive) {
+  } else if (placeName.length < 3 && state.active) {
     dropdown = (
       <ul className={styles.dropdown}>
         <li>{minLengthTxt}</li>
       </ul>
     );
-  } else if (placeName.length > 2 && (placesList.length || citiesList.length) && isActive) {
+  } else if (placeName.length > 2 && (placesList.length || citiesList.length) && state.active) {
     dropdown = <ul ref={dropRef} onKeyDown={handleRef} onBlur={myBlu} className={`${styles.dropdown}`}>
       {places.length ? <><li className={styles.listTitle}>{placesTxt}</li>{places}</> : null}
       {cities.length ? <><li className={styles.listTitle}>{citiesTxt}</li>{cities}</> : null}
     </ul>;
-  } else if (placesList.length === 0 && citiesList.length === 0 && isActive) {
+  } else if (placesList.length === 0 && citiesList.length === 0 && state.active) {
     dropdown = (
       <ul className={styles.dropdown}>
         <li>{nothingFoundTxt}</li>
