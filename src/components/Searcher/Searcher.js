@@ -2,7 +2,7 @@ import React, {
   useState,
   useCallback,
   useRef,
-  useEffect,
+  useEffect
 } from 'react';
 import { get } from '../../api';
 import { debounced } from '../../helpers/functions';
@@ -99,10 +99,10 @@ const Searcher = (props) => {
   const getPlaces = (phrase) => {
     setError(false);
     get(`places?search=${phrase}`).then((res) => {
+      setIsLoading(false);
       if (pageIsActive) {
         const { data, status } = res;
         //console.log(data);
-        setIsLoading(false);
         if (status === 200) {
           setPlacesList(data.places);
           setCitiesList(data.cities)
@@ -119,7 +119,7 @@ const Searcher = (props) => {
     const phrase = event.target.value;
     setPlaceName(phrase);
     if (phrase.length > 2) {
-      setIsLoading(true);
+      if (!isLoading) setIsLoading(true);
       debounceGet(phrase);
     }
   };
@@ -143,7 +143,7 @@ const Searcher = (props) => {
     setTimeout(() => {
       const elem = document.activeElement;
       if (+elem.getAttribute('tabindex') !== -1) {
-        setIsActive(false)
+        setIsActive( (prev) => false)
       }
 
     }, 500);
@@ -196,7 +196,7 @@ const Searcher = (props) => {
     setTimeout(() => {
       const elem = document.activeElement;
       if (+elem.getAttribute('tabindex') !== -1) {
-        setIsActive(false)
+        setIsActive((prev) =>false)
       }
     }, 500);
   }
