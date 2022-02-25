@@ -2,7 +2,7 @@ import React, {
   useState,
   useCallback,
   useRef,
-  useEffect,
+  useEffect
 } from 'react';
 import { get } from '../../api';
 import { debounced } from '../../helpers/functions';
@@ -102,7 +102,7 @@ const Searcher = (props) => {
       if (pageIsActive) {
         const { data, status } = res;
         //console.log(data);
-        setIsLoading(false);
+        setIsLoading((prev) => false);
         if (status === 200) {
           setPlacesList(data.places);
           setCitiesList(data.cities)
@@ -143,7 +143,7 @@ const Searcher = (props) => {
     setTimeout(() => {
       const elem = document.activeElement;
       if (+elem.getAttribute('tabindex') !== -1) {
-        setIsActive(false)
+        setIsActive( (prev) => false)
       }
 
     }, 500);
@@ -196,7 +196,7 @@ const Searcher = (props) => {
     setTimeout(() => {
       const elem = document.activeElement;
       if (+elem.getAttribute('tabindex') !== -1) {
-        setIsActive(false)
+        setIsActive((prev) =>false)
       }
     }, 500);
   }
